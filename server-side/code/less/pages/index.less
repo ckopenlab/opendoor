@@ -1,0 +1,22 @@
+#index {
+    padding: 15px;
+    h1 {
+        margin-top: 50px;
+    }
+    p {
+        line-height: 80px;
+    }
+    span {
+        .size( 80px );
+        .border( #000 );
+        .inline;
+        vertical-align: middle;
+        margin-right: 15px;
+        &.reviewing { .background( 'icon/reviewing.png' ); }
+        &.opened { .background( 'icon/opened.png' ); }
+        &.expired { .background( 'icon/expired.png' ); }
+    }
+    .mail {
+        color: @blue;
+    }
+}

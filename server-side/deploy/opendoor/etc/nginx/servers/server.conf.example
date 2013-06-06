@@ -1,0 +1,8 @@
+server {
+
+    listen       80;
+    server_name  yourdomain;
+    root /path/to/yoursite;
+
+    include i/server.conf;
+}

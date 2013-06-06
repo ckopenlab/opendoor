@@ -1,0 +1,74 @@
+@-webkit-keyframes popin {
+    from {
+        -webkit-transform: scale(.8);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+}
+@-webkit-keyframes popout {
+    from {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform: scale(.8);
+        opacity: 0;
+    }
+}
+
+.pop {
+    #position.lt(0, 0, fixed);
+    z-index: 999;
+    .size(100%, 100%);
+    -webkit-transform-origin: 50% 50%;
+    .keepSize;
+    display: table;
+
+    .wrapper {
+        display:table-cell;
+        vertical-align:middle;
+
+        .popBox {
+            #position.container;
+            .center;
+            .size(80%, auto);
+            .border( @blue );
+            .border-radius( 15px );
+            border-width: 3px;
+            .background( #fff );
+            .close {
+                .block;
+                .size(75px, 75px);
+                #position.rt(-37px, -37px);
+                .background( 'close.png' );
+            }
+            .content {
+                padding: 30px;
+                button:last-child { margin-bottom: 0; }
+            }
+        }
+    }
+    &.in {
+        opacity: 1;
+        -webkit-animation-timing-function: ease-out;
+        -webkit-transform: scale(1);
+        -webkit-animation-name: popin;
+        -webkit-animation-duration: 250ms;
+        &.reverse {
+            -webkit-animation-name: fadein;
+        }
+    }
+    &.out {
+        opacity: 0;
+        -webkit-animation-name: popout;
+        -webkit-animation-timing-function: ease-in;
+        -webkit-animation-duration: 200ms;
+        &.reverse {
+            -webkit-transform: scale(.8);
+            -webkit-animation-name: popout;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+// Form.less
+// Styles for form elements
+// ------------------------------------
+
+// Prevent default appearance
+input[type="text"], 
+input[type="password"], 
+input[type="search"], 
+textarea { 
+    padding: 10px;
+    height: 36px;
+    .text( @textColor, 36px, 36px );
+	border: 2px solid @blueLight; 
+	outline: none; 
+	-webkit-appearance: none;
+}
+
+.form {
+    label {
+        color: @blue;
+    }
+    .error {
+        .errorMessage {
+            color: @red;
+        }
+    }
+}
