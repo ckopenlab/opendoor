@@ -22,7 +22,7 @@ if ( !$user ){
     $pass = md5( 'openlab' . $salt );
     Sqlite::exec(
     	'insert into tbl_user (level, username, password, salt, token, time, expire) values (?,?,?,?,?,?,?)',
-        array( 'guest', null, $pass, $salt, $token, time(), null )
+        array( 'guest', uniqid(), $pass, $salt, $token, time(), null )
     );
     $status = 'reviewing';
 }

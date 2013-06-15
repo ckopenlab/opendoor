@@ -32,3 +32,5 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+
+*.prefs
