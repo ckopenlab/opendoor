@@ -1,26 +1,18 @@
 <?php
 class Door extends CActiveRecord
 {
-    const ID = 1;         //默认门ID
-    const HIGH = 1;       //高电平
-    const LOW = 0;        //低电平
+	const SOMEONE = '某人'; //默认文案
+    const ID = 1;          //默认门ID
+    const HIGH = 1;        //高电平
+    const LOW = 0;         //低电平
     
     use ActiveTable;
     
-    public function create ( $data )
-	{
-		$record = new User;
-		$record->level = self::DEFAULT_LEVEL;
-		$record->token = $data[ 'token' ];
-		$record->time = time();
-		$record->setPassword( self::DEFAULT_PASSWORD );
-		return $record->save();
-	}
-    
-    public static function open ( $id = self::ID )
+    public static function open ( $name = self::SOMEONE, $id = self::ID )
     {
         $door = self::model()->findById( $id );
         if ( abs( time() - (int) $door[ 'opened_at' ] ) > OPEN_INTERVAL  ) {
+        	$door->opened_by = $name; 
             $door->opened_at = time();
             $door->save();
             system( 'gpio mode ' . GPIO_PIN . ' out' );
@@ -28,5 +20,14 @@ class Door extends CActiveRecord
             system( 'sleep ' . OPEN_DELAY );
             system( 'gpio write ' . GPIO_PIN . ' ' . self::HIGH );
         }
+    }
+    
+    public static function log ( $id = self::ID )
+    {
+    	$door = self::model()->findById( $id );
+    	return !$door->opened_by ? '' : Yii::t( 'door', 'notice', array(
+			'person' => $door->opened_by,
+    		'time' => Time::interval( $door->opened_at )
+    	) );
     }
 }

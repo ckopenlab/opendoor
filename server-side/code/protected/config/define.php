@@ -12,7 +12,7 @@ define('RESOURCE_VERSION', '1.1');
  * 数据库地址
  * @var string
  */
-define('DB_PATH', 'protected/data/door.db');
+define('DB_PATH', '/Users/zhangshenjia/github/opendoor/server-side/code/protected/data/door.db');
 
 /**
  * GPIO输出针脚

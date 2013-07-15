@@ -20,23 +20,90 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+	
+	public $params = array(
+		'phoneUDID', 'phoneModel', 'softVersion'
+	);
+	
+	/**
+	 * 请求成功
+	 * @param array $result
+	 */
+	public function success ( $result = array() )
+	{
+	    $json = array( 'state' => ErrorCode::SUCCESS );
+	    if ( $result ) {
+	        $json[ 'result' ] = $result;
+	    }
+	    echo json_encode( $json );
+	    Yii::app()->end();
+	}
 
+	/**
+	 * 请求失败
+	 * @param string $code
+	 * @param array $params
+	 */
+	public function fail ( $code = ErrorCode::UNKNOWN_ERROR, $params = array() )
+	{
+	    $this->error( array(
+	        'code' => $code,
+	        'message' => Yii::t( 'error', $code, $params )
+	    ) );
+	}
+
+	/**
+	 * 输出错误信息
+	 * @param array $error
+	 */
+	public function error ( $error )
+	{
+	    echo json_encode( array(
+	    	'state'   => $error[ 'code' ],
+	        'message' => $error[ 'message' ]
+	    ) );
+	    Yii::app()->end();
+	}
+
+	/**
+	 * 检查请求
+	 * @see CController::beforeAction()
+	 */
+	public function beforeAction ( $action )
+	{
+	    $this->checkParams();
+	    return true;
+	}
+	
+	/**
+	 * 检查必备参数
+	 */
+	public function checkParams()
+	{
+		$params = $this->getActionParams();
+		foreach ( $this->params as $name ) {
+			if ( !isset( $params[ $name ] ) )  $this->fail( ErrorCode::INVALID_REQUEST );
+		}		
+	}
+
+	/**
+     * 获取参数
+     */
 	public function getActionParams()
 	{
 		return array_merge( $_GET, $_POST );
 	}
-	
-	public function error ( $message ) 
+
+	/**
+	 * 获取参数
+	 * @param array $names
+	 */
+	public function getParams ( $names = array() )
 	{
-		$this->layout = 'simple';
-		$this->renderPartial( '/site/error', array( 'code' => 'error', 'message' => $message ) );
-		Yii::app()->end();
-	}
-	
-	public function output ( $data ) 
-	{
-		header( 'Content-type: text/html;charset=utf-8' );
-		echo json_encode( $data );
-		Yii::app()->end();	
+	    $params = array();
+	    foreach ( $names as $name ) {
+	        array_push( $params, $this->actionParams[ $name ] );
+	    }
+	    return $params;
 	}
 }
