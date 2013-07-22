@@ -58,7 +58,7 @@ class User extends CActiveRecord
 		return self::$levelNameMap;
 	}
 
-	public static function getLevelName()
+	public function getLevelName()
 	{
 		return self::$levelNameMap[ $this->level ];
 	}
@@ -82,13 +82,4 @@ class User extends CActiveRecord
 	    //昵称合法
 	    return true; 
     } 
-    
-    /* to be removed */
-	public static function checkToken ( $token )
-    {
-        return (boolean) User::model()->findAll(array(
-			'condition'	=> 'token=:token and expire>:expire',
-			'params'	=> array( ':token' => $token, ':expire' => time() ),
-		));
-    }
 }

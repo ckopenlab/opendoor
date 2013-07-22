@@ -6,7 +6,9 @@ class OldTest extends TestCase
      */
     function testOpenShouldFail()
     {
-        $r = $this->get( TEST_API_SERVER . '/open.php' );
+        $r = $this->get( TEST_API_SERVER . '/deprecated.php' );
+        $this->assertText( '废弃使用' );
+        $r = $this->get( TEST_API_SERVER . '/open/token' );
         $this->assertText( '废弃使用' );
     }
 		

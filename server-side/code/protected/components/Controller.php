@@ -24,7 +24,9 @@ class Controller extends CController
 	public $params = array(
 		'phoneUDID', 'phoneModel', 'softVersion'
 	);
-	
+
+	public $api = array();
+
 	/**
 	 * 请求成功
 	 * @param array $result
@@ -71,7 +73,7 @@ class Controller extends CController
 	 */
 	public function beforeAction ( $action )
 	{
-	    $this->checkParams();
+		if ( in_array( $action->id, $this->api ) ) $this->checkParams();
 	    return true;
 	}
 	

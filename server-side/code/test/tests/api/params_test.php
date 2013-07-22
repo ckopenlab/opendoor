@@ -1,7 +1,7 @@
 <?php
 class ParamsTest extends TestCase
 {
-	const ROUTE = '/version';
+	const ROUTE = '/status';
 	
 	/**
      * 没有parms的请求(失败)

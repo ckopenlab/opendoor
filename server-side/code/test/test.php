@@ -27,6 +27,16 @@ abstract class TestCase extends ZTestCase
     {
     	Sqlite::exec( 'delete from tbl_user where username="' . $name . '"' );
     }
+    
+    public function accessTestUser ( $name = TEST_USER )
+    {
+    	Sqlite::exec( 'update tbl_user set level="user", expire=' . ( time() + 100 ) . ' where username="' . $name . '"' );
+    }
+    
+    public function expireTestUser ( $name = TEST_USER )
+    {
+    	Sqlite::exec( 'update tbl_user set level="user", expire=' . ( time() - 100 ) . ' where username="' . $name . '"' );
+    }
 
     protected function getFields ( $response )
     {

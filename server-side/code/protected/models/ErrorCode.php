@@ -20,8 +20,9 @@ class ErrorCode
      * 用户错误
      */
     const REGISTERED       = 2000; //已经注册
-    const REVIEWING		   = 2001; //正在审核中
-    const EXPIRED		   = 2002; //已经过期
+    const NOT_REGISTERED   = 2001; //还没有注册 
+    const REVIEWING		   = 2002; //正在审核中
+    const EXPIRED		   = 2003; //已经过期
     
     /**
      * 门错误

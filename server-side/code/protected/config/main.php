@@ -37,10 +37,7 @@ return array(
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
-		        'open'=>'door/open',
-		        'status'=>'user/status',
-				'register'=>'user/register',
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+		        '<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),

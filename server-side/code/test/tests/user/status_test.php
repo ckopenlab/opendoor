@@ -64,9 +64,8 @@ class StatusTest extends TestCase
     function testAfterReviewShouldReturnNormal()
     {
     	$this->createTestUser();
-    	Sqlite::exec( 'update tbl_user set level="user", expire=' . ( time() + 100 ) . ' where username="' . TEST_USER . '"' );
+    	$this->accessTestUser();
         $r = $this->getAPI();
-        var_dump($r);
         if ( $this->assertSuccess( $r ) ) {
         	$this->assertEqual( $r[ 'result' ][ 'status' ], self::STATUS_NORMAL );
         }
@@ -78,7 +77,7 @@ class StatusTest extends TestCase
     function testAfterExpiredShouldReturnExpired()
     {
     	$this->createTestUser();
-    	Sqlite::exec( 'update tbl_user set level="user", expire=' . ( time() - 100 ) . ' where username="' . TEST_USER . '"' );
+    	$this->expireTestUser();
         $r = $this->getAPI();
         $this->assertEqual( $r[ 'result' ][ 'status' ], self::STATUS_EXPIRED );
     }

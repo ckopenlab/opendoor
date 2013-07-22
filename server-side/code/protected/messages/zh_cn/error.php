@@ -10,8 +10,9 @@ return array(
     ErrorCode::NOT_FOUND        => '没有找到记录',
 
     //用户错误
-    ErrorCode::REGISTERED  => '您已经注册过了！',
-    ErrorCode::REVIEWING   => '您的审核还没通过呢！',
-    ErrorCode::EXPIRED     => '您的授权已过期，请联系管理员！',
+    ErrorCode::REGISTERED      => '您已经注册过了！',
+    ErrorCode::NOT_REGISTERED  => '您还没有注册呢！',
+    ErrorCode::REVIEWING       => '您的审核还没通过呢！',
+    ErrorCode::EXPIRED         => '您的授权已过期，请联系管理员！',
     
 );

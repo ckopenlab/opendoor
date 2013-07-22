@@ -2,6 +2,7 @@
 class DoorController extends Controller
 {
     public $layout = 'simple';
+    public $api = array( 'open' );
     
     public function accessRules()
 	{
@@ -18,10 +19,11 @@ class DoorController extends Controller
     public function actionOpen ( $phoneUDID )
     {
     	$user = User::model()->findByUDID( $phoneUDID );
-    	
-    	if ( !$user ) 			  $this->error( ErrorCode::NOT_FOUND );
+
+    	if ( !$user ) 			  $this->fail( ErrorCode::NOT_REGISTERED );
     	if ( $user->isGuest() )   $this->failToOpen( ErrorCode::REVIEWING );
     	if ( $user->isExpired() ) $this->failToOpen( ErrorCode::EXPIRED );
+
     	
     	Door::open( $user->username );
     	
@@ -34,4 +36,5 @@ class DoorController extends Controller
  			'status' => 'fail',
  			'reason' => Yii::t( 'error', $status )
  		));
+ 	}
 }

@@ -1,33 +1,41 @@
 <?php
-session_start();
-if ( !isset( $_SESSION[ 'status_dice' ] ) || $_SESSION[ 'status_dice' ] >= 5 ) {
-	$_SESSION[ 'status_dice' ] = 1;	
-} else {
-	$_SESSION[ 'status_dice' ]++;
+require_once 'api.php';
+
+$user = Sqlite::findOne('select * from tbl_user where udid=?', $_GET[ 'phoneUDID' ] );
+
+//新用户
+if ( !$user ) {
+	status( 'new' );
+}
+//等待审核
+else if ( $user[ 'level' ] == 'guest' ) {
+	status( 'review' );
+}
+//已经过期
+else if ( $user[ 'expire' ] < time() ) {
+	status( 'expired' );
+}
+//正常
+else {
+	status( 'normal' );
 }
 
-switch ( $_SESSION[ 'status_dice' ] ) {
-	case 1 : printStatus( 'new'     ); break;
-	case 2 : printStatus( 'review'  ); break;
-	case 3 : printStatus( 'normal'  ); break;
-	case 4 : printStatus( 'expired' ); break;
-	case 5 : error()                 ; break;
+function status ( $status )
+{
+	$door = Sqlite::findOne('select * from tbl_door');
+	success( array(
+		'status' => $status,
+		'notice' => $door[ 'opened_by' ] ? $door[ 'opened_by' ] . interval( $door[ 'opened_at' ] ) . '打开了门' : ''   
+	) );   	
 }
 
-
-function printStatus ( $status ) {
-	echo json_encode(array(
-		'state' => 1,
-		'result' => array(
-			'status' => $status,
-			'notice' => '刘国维刚刚开了门'
-		)
-	));
-}
-
-function error ( ) {
-	echo json_encode(array(
-		'state' => '1000',
-		'message' => '服务器未知错误'
-	));
+function interval ( $time )
+{
+    $interval = time() - $time;
+    
+    if ( $interval < 60 )      return '刚刚';
+    if ( $interval < 3600 )    return floor( $interval / 60 ) . '分钟前';
+    if ( $interval < 86400 )   return floor( $interval / 3600 ) . '小时前';
+    if ( $interval < 2592000 ) return floor( $interval / 86400 ) . '天前';
+    return '曾经';
 }

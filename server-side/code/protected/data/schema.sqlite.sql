@@ -21,6 +21,11 @@ INSERT INTO tbl_user
     (level, username, password, salt, udid, model, time, expire) VALUES 
     ('admin', 'zhangshenjia', 'pass', 'salt', 'udid', 'model', 1368631371, 1369631371);
     
+INSERT INTO tbl_user 
+    (level, username, password, salt, udid, model, time, expire) VALUES 
+    ('admin', 'liuguowei', 'pass', 'salt', 'udidd', 'model', 1368631371, 1369631371);
+
+    
 INSERT INTO tbl_door 
     (name) VALUES
     ('openlab');

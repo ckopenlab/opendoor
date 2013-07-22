@@ -3,7 +3,7 @@
 		<?= $user->username ? $user->username : '游客' . $user->id ?>
 	</span>
     <span class="time"><?= Time::interval( $user->time ) ?></span>
-    <span class="token"><?= $user->token ?></span>
+    <span class="token"><?= $user->model ?> (<?= $user->udid ?>)</span>
     <div class="buttons">
     <?php 
     $this->widget( 'Buttons', array( 

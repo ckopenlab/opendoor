@@ -7,7 +7,7 @@ DEPLOY_PATH=/opt
 
 log_action_msg Deploying [ opendoor ] \( by zshenjia@gmail.com \)
 
-# Install php5-dev, php5-fpm, php5-sqlite
+# Install php5-dev, php5-fpm, php5-sqlite, php5-xcache
 log_action_msg Installing [ php5-dev ] by apt-get...
 sudo apt-get install php5-dev -y
 
@@ -19,6 +19,9 @@ sudo cp -r ./etc/php5 /etc/php5
 
 log_action_msg Installing [ php5-sqlite ] by apt-get...
 sudo apt-get install php5-sqlite -y
+
+log_action_msg Installing [ php5-xcache ] by apt-get...
+sudo apt-get install php5-xcache -y
 
 # Install WiringPi
 log_action_msg Building [ WiringPi ]...

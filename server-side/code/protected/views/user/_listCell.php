@@ -8,7 +8,7 @@
     <?php else:?>
     <span class="time expired">已过期</span>
     <?php endif;?>
-    <span class="token"><?= $user->token ?></span>
+    <span class="token"><?= $user->model ?> (<?= $user->udid ?>)</span>
     <div class="buttons">
     <?php 
     $this->widget( 'Buttons', array( 
