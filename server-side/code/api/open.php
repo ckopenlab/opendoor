@@ -1,7 +1,7 @@
 <?php
 require_once 'api.php';
 
-$user = Sqlite::findOne('select level,expire from tbl_user where udid=?', $_GET[ 'phoneUDID' ] );
+$user = Sqlite::findOne('select username,level,expire from tbl_user where udid=?', $_GET[ 'phoneUDID' ] );
 
 //未注册不能开门
 if ( !$user ) { 			  

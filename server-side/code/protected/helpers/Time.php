@@ -65,10 +65,10 @@ class Time
         if ( $min_dis ) return $min_dis . '分钟' . $direction;
 		
 		return "刚刚";
-	}	
+	}
 	
 	private static function renderInterval ( $dis, $unit, $direction )
 	{
 	    return $dis . $unit . ( $direction ? '后' : '前' );
-	} 
+	}
 }
